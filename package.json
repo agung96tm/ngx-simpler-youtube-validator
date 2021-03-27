@@ -1,6 +1,6 @@
 {
   "name": "ngx-simpler-youtube-validator",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,7 +8,22 @@
     "test": "ng test",
     "lint": "ng lint"
   },
-  "private": true,
+  "author": {
+    "name": "Agung Yuliyanto",
+    "email": "agung.96tm@gmail.com",
+    "url": "https://agung96tm.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agung96tm/ngx-simpler-youtube-validator.git"
+  },
+  "keywords": [
+    "angular",
+    "libraries",
+    "youtube",
+    "validation"
+  ],
+  "license": "MIT",
   "dependencies": {
     "@angular/animations": "~11.0.3",
     "@angular/common": "~11.0.3",
