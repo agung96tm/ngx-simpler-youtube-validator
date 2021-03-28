@@ -10,6 +10,8 @@ import { NgxSimplerYoutubeValidatorDirective } from './ngx-simpler-youtube-valid
   imports: [
     HttpClientModule,
   ],
-  exports: []
+  exports: [
+    NgxSimplerYoutubeValidatorDirective,
+  ]
 })
 export class NgxSimplerYoutubeValidatorModule { }
