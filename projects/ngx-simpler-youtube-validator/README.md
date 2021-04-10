@@ -39,7 +39,13 @@ export class AppModule { }
             [formControl]="url"
             [isYoutubeUrl]="true" <-- indicator that you want validate url 
                                         or youtube id, default is false
-            appSimplerYoutubeValidator> <-- this
+            [forceFixUrl]="true" <-- if true and isYoutubeUrl, 
+                                        then your input will be updated become 
+                                        proper format.
+                                        ex:
+                                            from: https://www.youtube.com/watch?v=w2y715XAmso&list=RDLlldWeUmwVY&index=2
+                                            to: https://www.youtube.com/watch?v=w2y715XAmso
+            simplerYoutubeValidator> <-- this
 
           <div>
             <button [disabled]="!form.valid">

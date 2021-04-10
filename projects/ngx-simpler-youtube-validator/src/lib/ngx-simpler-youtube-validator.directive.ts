@@ -1,8 +1,10 @@
-import { Directive, forwardRef, Input } from '@angular/core';
+import {Directive, ElementRef, forwardRef, HostListener, Input} from '@angular/core';
 import { AbstractControl, NG_ASYNC_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 import { NgxSimplerYoutubeValidatorService } from './ngx-simpler-youtube-validator.service';
 import { Observable, timer } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
+
+const YOUTUBE_URL = 'https://www.youtube.com';
 
 @Directive({
   selector: '[simplerYoutubeValidator][formControl], [simplerYoutubeValidator][ngModel]',
@@ -16,9 +18,21 @@ import { map, switchMap } from 'rxjs/operators';
 })
 export class NgxSimplerYoutubeValidatorDirective implements Validator {
   @Input() isYoutubeUrl = false;
+  @Input() forceFixUrl = false;
+
+  private canForceFixUrl(): boolean {
+    return (this.isYoutubeUrl && this.forceFixUrl);
+  }
+
+  forceUpdateUrl(isValid: boolean, value: string): void {
+    if (isValid && this.canForceFixUrl()) {
+      this.el.nativeElement.value = `${YOUTUBE_URL}/watch?v=${value}`;
+    }
+  }
 
   constructor(
     private validatorService: NgxSimplerYoutubeValidatorService,
+    private el: ElementRef,
   ) { }
 
   validate({ value }: AbstractControl): Observable<ValidationErrors | null> {
@@ -26,6 +40,7 @@ export class NgxSimplerYoutubeValidatorDirective implements Validator {
 
     return timer(800).pipe(
       switchMap(() => this.validatorService.isValid(value)),
+      tap(isValid => this.forceUpdateUrl(isValid, value)),
       map(isValid => isValid ? null : { youtubeValidator: true }),
     );
   }

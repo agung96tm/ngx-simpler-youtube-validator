@@ -13,7 +13,7 @@ export class NgxSimplerYoutubeValidatorService {
     private httpClient: HttpClient,
   ) { }
 
-  isValid(youtubeId: string): Observable<unknown> {
+  isValid(youtubeId: string): Observable<boolean> {
     const params = new HttpParams({
       fromObject: {
         url: `http://www.youtube.com/watch?v=${youtubeId}`,
